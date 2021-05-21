@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.sample.domain.Administrator;
 import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.service.AdministratoerService;
 
@@ -18,7 +19,7 @@ import jp.co.sample.service.AdministratoerService;
 @RequestMapping("/")
 public class AdministratorController {
 	@Autowired
-	AdministratoerService administratorservice;
+	AdministratoerService administratorService;
 	
 	/**
 	 * AdministratorのFormを返すメソッドです.
@@ -37,6 +38,25 @@ public class AdministratorController {
 	@RequestMapping("/toInsert")
 	public String toInsert() {
 		return "administrator/Insert";
+	}
+	
+	/**insertメソッドです.
+	 * 受け取ったフォームをドメインにしてserviceのinsertメソッドに送ります。
+	 * @param form
+	 * @return
+	 */
+	@RequestMapping("/insert")
+	public String insert(InsertAdministratorForm form) {
+		
+		Administrator administrator = new Administrator();
+		administrator.setName(form.getName());
+		administrator.setMailAddress(form.getMailAddress());
+		administrator.setPassword(form.getPassword());
+		System.out.println(administrator);
+		
+		administratorService.insert(administrator);
+		
+		return "redirect:/";
 	}
 	
 	
