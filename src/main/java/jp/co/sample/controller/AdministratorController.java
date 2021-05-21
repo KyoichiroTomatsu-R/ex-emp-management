@@ -1,8 +1,11 @@
 package jp.co.sample.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +24,9 @@ import jp.co.sample.service.AdministratoerService;
 public class AdministratorController {
 	@Autowired
 	AdministratoerService administratorService;
+	
+	@Autowired
+	private HttpSession session;
 	
 	/**
 	 * AdministratorのFormを返すメソッド.
@@ -76,6 +82,25 @@ public class AdministratorController {
 	public String toLogin() {
 		return "administrator/login";
 	}
+	
+	/**
+	 * 入力された情報でログイン処理.
+	 * @param form 入力された情報
+	 * @param model request
+	 * @return フォワード
+	 */
+	@RequestMapping("/login")
+	public String login(LoginForm form,Model model) {
+		Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
+		if(administrator == null) {
+			model.addAttribute("loginFailed", "メールアドレスまたはパスワードが不正です。");
+			return "administrator/login";
+		}
+			model.addAttribute("administratirName", administrator.getName());
+		
+		return "foward:/employee/showList";
+	}
+	
 	
 	
 	

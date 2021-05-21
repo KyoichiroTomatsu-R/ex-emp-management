@@ -33,7 +33,7 @@
 						<fieldset>
 							<legend>ログイン</legend>
 							<div class="form-group">
-								<div class="alert alert-danger">
+								<div class="alert alert-danger"　th:if="${loginFailed} != null" th:text="${loginFailed}">
 			                        <p>メールアドレスまたはパスワードが間違っています</p>
 			                    </div>
 							</div>
