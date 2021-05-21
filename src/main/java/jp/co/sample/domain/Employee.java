@@ -3,7 +3,7 @@ package jp.co.sample.domain;
 import java.util.Date;
 
 /**
- * 従業員を表すドメインです. 従業員を扱う際に利用ください。
+ * 従業員を表すドメインです.
  * 
  * @author kyoichiro.tomatsu
  *

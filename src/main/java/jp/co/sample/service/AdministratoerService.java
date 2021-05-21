@@ -8,7 +8,7 @@ import jp.co.sample.domain.Administrator;
 import jp.co.sample.repository.AdministratorRepository;
 
 /**
- * Administratorのサービスクラスです. Administratorのサービスを使いたい時に利用してください
+ * Administratorのリポジトリを使うサービスクラスです.
  * 
  * @author kyoichiro.tomatsu
  *
@@ -20,10 +20,10 @@ public class AdministratoerService {
 	AdministratorRepository administratorRepository;
 
 	/**
-	 * AdministratorServiceのinsertメソッドです.
+	 * 引数の管理者データを追加.
 	 * AdministratorRepositoryのinsertメソッドを利用しています。
 	 * 
-	 * @param administrator
+	 * @param administrator　追加する管理者データ
 	 */
 	public void insert(Administrator administrator) {
 		administratorRepository.insert(administrator);

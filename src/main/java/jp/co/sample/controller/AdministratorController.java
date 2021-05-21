@@ -1,5 +1,6 @@
 package jp.co.sample.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.domain.Administrator;
 import jp.co.sample.form.InsertAdministratorForm;
+import jp.co.sample.form.LoginForm;
 import jp.co.sample.service.AdministratoerService;
 
 /**
- * AdministratorのControllerクラスです.
- * AdministratorのControllerとして利用してください。
+ * Administratorを操作するクラス.
  * @author kyoichiro.tomatsu
  *
  */
@@ -22,8 +23,7 @@ public class AdministratorController {
 	AdministratoerService administratorService;
 	
 	/**
-	 * AdministratorのFormを返すメソッドです.
-	 * Administratorのformが返り値として呼ばれます
+	 * AdministratorのFormを返すメソッド.
 	 * @return
 	 */
 	@ModelAttribute
@@ -31,16 +31,18 @@ public class AdministratorController {
 		return new InsertAdministratorForm();
 	}
 	
-	/**フォワードするためのtoInsertメソッドです.
+	/**
+	 * フォワードするためのtoInsertメソッド.
 	 * administrator/Insertにフォワードされます。
 	 * @return
 	 */
 	@RequestMapping("/toInsert")
 	public String toInsert() {
-		return "administrator/Insert";
+		return "administrator/insert";
 	}
 	
-	/**insertメソッドです.
+	/**
+	 * 引き値の管理者情報を登録.
 	 * 受け取ったフォームをドメインにしてserviceのinsertメソッドに送ります。
 	 * @param form
 	 * @return
@@ -49,14 +51,30 @@ public class AdministratorController {
 	public String insert(InsertAdministratorForm form) {
 		
 		Administrator administrator = new Administrator();
-		administrator.setName(form.getName());
-		administrator.setMailAddress(form.getMailAddress());
-		administrator.setPassword(form.getPassword());
-		System.out.println(administrator);
-		
+		BeanUtils.copyProperties(form, administrator);
+			
 		administratorService.insert(administrator);
 		
 		return "redirect:/";
+	}
+	
+	/**
+	 * Modelオブジェクトに自動格納するためのメソッド.
+	 * @return
+	 */
+	@ModelAttribute
+	public LoginForm setUpLoginForm() {
+		return new LoginForm();
+	}
+	
+	/**
+	 * リダイレクトのためのメソッド.
+	 * insertからリダイレクトされた時によばれ、loginにフォワードします。
+	 * @return
+	 */
+	@RequestMapping("/")
+	public String toLogin() {
+		return "administrator/login";
 	}
 	
 	

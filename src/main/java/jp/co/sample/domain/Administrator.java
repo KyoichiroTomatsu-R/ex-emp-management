@@ -1,7 +1,7 @@
 package jp.co.sample.domain;
 
 /**
- * 管理者を表すドメインです. 管理者を扱う際に利用してください
+ * administratorsテーブルを表すドメイン . 
  * 
  * @author kyoichiro.tomatsu
  * 

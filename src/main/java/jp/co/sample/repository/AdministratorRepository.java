@@ -13,8 +13,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.sample.domain.Administrator;
 
 /**
- * Administratorのリポジトリクラスです.
- * Administratorのリポジトリの役割です。
+ * Administratorsテーブルを操作するリポジトリ.
  * @author kyoichiro.tomatsu
  *
  */
@@ -22,7 +21,7 @@ import jp.co.sample.domain.Administrator;
 public class AdministratorRepository {
 	
 	@Autowired
-	NamedParameterJdbcTemplate template;
+	private NamedParameterJdbcTemplate template;
 	/** ROW_MAPPER */
 	private static final RowMapper<Administrator> ADMINISTRATOR_ROW_MAPPER = (rs,i) ->{
 		Administrator admin = new Administrator();
@@ -35,9 +34,8 @@ public class AdministratorRepository {
 	};
 	
 	/**
-	 * insertメソッドです.
-	 * ドメインを入れたい時に使ってください。
-	 * @param administrator
+	 * 管理者情報を登録.
+	 * @param administrator　管理者情報
 	 */
 	public void insert(Administrator administrator) {
 		
@@ -48,12 +46,11 @@ public class AdministratorRepository {
 	}
 	
 	/**
-	 * AdministratorのfindByMailAddressAndPasswordメソッドです.
-	 * メールアドレスとパスワードからドメインを取得します。
+	 * メールアドレスとパスワードが一致するドメインをAdministratorsテーブルから取得.
 	 * 
-	 * @param mailAddress
-	 * @param password
-	 * @return
+	 * @param mailAddress メールアドレス
+	 * @param password パスワード
+	 * @return 検索結果
 	 */
 	public Administrator findByMailAddressAndPassword(String mailAddress,String password) {
 		String findSql = "SELECT id,name,mail_address,password FROM administrators WHERE mail_address=:mailAddress AND password=:password";
