@@ -66,8 +66,7 @@ public class EmployeeController {
 	public String update(UpdateEmployeeForm form) {
 		
 		Employee employee = employeeService.showDetail(Integer.parseInt(form.getId()));
-		System.out.println(employee);
-		
+				
 		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
 		
 		employeeService.update(employee);
