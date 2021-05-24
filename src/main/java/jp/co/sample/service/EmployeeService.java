@@ -11,6 +11,7 @@ import jp.co.sample.repository.EmployeeRepository;
 
 /**
  * 従業員のリポジトリを使うサービスクラスです.
+ * 
  * @author kyoichiro.tomatsu
  *
  */
@@ -25,7 +26,7 @@ public class EmployeeService {
 	/**
 	 * 全件検索.
 	 * 
-	 * @return リポジトリのfindAll()
+	 * @return 全ての従業員
 	 */
 	public List<Employee> showList(){
 		return employeerepository.findAll();
@@ -41,6 +42,14 @@ public class EmployeeService {
 		return employeerepository.load(id);
 	}
 	
+	/**
+	 * 従業員情報の更新.
+	 * 
+	 * @param employee 更新する従業員情報
+	 */
+	public void update(Employee employee) {
+		employeerepository.update(employee);
+	}
 	
 	
 	

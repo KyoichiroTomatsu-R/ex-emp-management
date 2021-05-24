@@ -12,6 +12,7 @@ import jp.co.sample.service.EmployeeService;
 
 /**
  * 従業員を操作するクラス.
+ * 
  * @author kyoichiro.tomatsu
  *
  */
@@ -30,8 +31,8 @@ public class EmployeeController {
 	
 	/**
 	 * 従業員一覧の出力.
-	 * @param model
-	 * @return employee/list.html
+	 * @param model　リクエストスコープ
+	 * @return 従業員一覧画面にフォワード
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
@@ -42,6 +43,12 @@ public class EmployeeController {
 		
 	}
 	
+	/**
+	 * 従業員詳細の出力.
+	 * @param id　従業員ID
+	 * @param model　リクエストスコープ
+	 * @return　従業員詳細画面にフォワード
+	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id, Model model) {
 		Employee employee = employeeService.showDetail(Integer.parseInt(id));
@@ -49,5 +56,24 @@ public class EmployeeController {
 		return "employee/detail";
 		
 	}
+	
+	/**
+	 * 従業員情報の更新.
+	 * @param form フォーム
+	 * @return 従業員一覧画面にフォワード
+	 */
+	@RequestMapping("/update")
+	public String update(UpdateEmployeeForm form) {
+		
+		Employee employee = employeeService.showDetail(Integer.parseInt(form.getId()));
+		System.out.println(employee);
+		
+		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
+		
+		employeeService.update(employee);
+		
+		return "redirect:/employee/showList";
+	}
+	
 	
 }

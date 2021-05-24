@@ -15,7 +15,8 @@ import jp.co.sample.form.LoginForm;
 import jp.co.sample.service.AdministratoerService;
 
 /**
- * Administratorを操作するクラス.
+ * 管理者を操作するコントローラークラス.
+ * 
  * @author kyoichiro.tomatsu
  *
  */
@@ -23,45 +24,18 @@ import jp.co.sample.service.AdministratoerService;
 @RequestMapping("/")
 public class AdministratorController {
 	@Autowired
-	AdministratoerService administratorService;
+	private AdministratoerService administratorService;
 	
 	@Autowired
 	private HttpSession session;
 	
 	/**
 	 * AdministratorのFormを返すメソッド.
-	 * @return
+	 * @return 従業員情報登録フォーム
 	 */
 	@ModelAttribute
 	public InsertAdministratorForm setUpInsertAdministrator() {
 		return new InsertAdministratorForm();
-	}
-	
-	/**
-	 * フォワードするためのtoInsertメソッド.
-	 * administrator/Insertにフォワードされます。
-	 * @return
-	 */
-	@RequestMapping("/toInsert")
-	public String toInsert() {
-		return "administrator/insert";
-	}
-	
-	/**
-	 * 引き値の管理者情報を登録.
-	 * 受け取ったフォームをドメインにしてserviceのinsertメソッドに送ります。
-	 * @param form
-	 * @return
-	 */
-	@RequestMapping("/insert")
-	public String insert(InsertAdministratorForm form) {
-		
-		Administrator administrator = new Administrator();
-		BeanUtils.copyProperties(form, administrator);
-			
-		administratorService.insert(administrator);
-		
-		return "redirect:/";
 	}
 	
 	/**
@@ -74,9 +48,37 @@ public class AdministratorController {
 	}
 	
 	/**
+	 * 従業員登録画面に遷移する.
+
+	 * @return 従業員登録画面にフォワード
+	 */
+	@RequestMapping("/toInsert")
+	public String toInsert() {
+		return "administrator/insert";
+	}
+	
+	/**
+	 * 管理者情報を登録.
+
+	 * @param form フォーム
+	 * @return　ログイン画面にリダイレクト
+	 */
+	@RequestMapping("/insert")
+	public String insert(InsertAdministratorForm form) {
+		
+		Administrator administrator = new Administrator();
+		BeanUtils.copyProperties(form, administrator);
+			
+		administratorService.insert(administrator);
+		
+		return "redirect:/";
+	}
+	
+	
+	/**
 	 * リダイレクトのためのメソッド.
 	 * insertからリダイレクトされた時によばれ、loginにフォワードします。
-	 * @return
+	 * @return ログイン画面にフォワード
 	 */
 	@RequestMapping("/")
 	public String toLogin() {
@@ -96,7 +98,7 @@ public class AdministratorController {
 			model.addAttribute("loginFailed", "メールアドレスまたはパスワードが不正です。");
 			return "administrator/login";
 		}
-			session.setAttribute("administratirName", administrator.getName());
+		session.setAttribute("administratirName", administrator.getName());
 		
 		return "foward:/employee/showList";
 	}

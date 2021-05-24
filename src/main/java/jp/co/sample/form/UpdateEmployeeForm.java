@@ -9,7 +9,7 @@ public class UpdateEmployeeForm {
 	/** 従業員ID */
 	private String id;
 	/** 扶養人数 */
-	private String dependentsCont;
+	private String dependentsCount;
 
 	public String getId() {
 		return id;
@@ -19,17 +19,17 @@ public class UpdateEmployeeForm {
 		this.id = id;
 	}
 
-	public String getDependentsCont() {
-		return dependentsCont;
+	public String getDependentsCount() {
+		return dependentsCount;
 	}
 
-	public void setDependentsCont(String dependentsCont) {
-		this.dependentsCont = dependentsCont;
+	public void setDependentsCount(String dependentsCont) {
+		this.dependentsCount = dependentsCont;
 	}
 
 	@Override
 	public String toString() {
-		return "UpdateEmployeeForm [id=" + id + ", dependentsCont=" + dependentsCont + "]";
+		return "UpdateEmployeeForm [id=" + id + ", dependentsCont=" + dependentsCount + "]";
 	}
 
 }
