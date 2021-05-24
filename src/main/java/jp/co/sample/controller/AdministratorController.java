@@ -96,7 +96,7 @@ public class AdministratorController {
 			model.addAttribute("loginFailed", "メールアドレスまたはパスワードが不正です。");
 			return "administrator/login";
 		}
-			model.addAttribute("administratirName", administrator.getName());
+			session.setAttribute("administratirName", administrator.getName());
 		
 		return "foward:/employee/showList";
 	}
